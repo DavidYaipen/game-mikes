@@ -25,25 +25,23 @@
         }
 
         #gamecontainer {
-            width: 900px;
+            width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
 
         #gamecanvas {
-            width: 900px;
-            height: 900px;
+            width: 800px;
+            height: 800px;
+            display: block;
+            margin: 0 auto;
         }
 
         #info {
-            width: 900px;
-            height: 900px;
+            width: 800px;
+            height: 800px;
             margin-left: auto;
             margin-right: auto;
-        }
-        #limon_nave_bla_blah{
-            width: 100px;
-            height: 100px;
         }
     </style>
 </head>
@@ -65,8 +63,8 @@
 
     //  Setup the canvas.
     var canvas = document.getElementById("gameCanvas");
-    canvas.width = 900;
-    canvas.height = 900;
+    canvas.width = 800;
+    canvas.height = 800;
 
     //  Create the game.
     var game = new Game();
