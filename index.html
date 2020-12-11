@@ -50,7 +50,13 @@
 <div id="gamecontainer">
     <canvas id="gameCanvas"></canvas>
 </div>
-
+<div id="info">
+    <p>Muévete con las teclas de flecha o desliza, dispara con la barra espaciadora o toca. Los invasores se vuelven más rápidos y caen
+        ¡Más bombas a medida que completas cada nivel!</p>
+    <p><a id="muteLink" href="#" onclick="toggleMute()">mute</a> |
+        <a href="http://github.com/dwmkerr/spaceinvaders">spaceinvaders on github</a> |
+        <a href="http://github.com/dwmkerr">more projects</a> | <a href="http://www.dwmkerr.com">dwmkerr.com</a></p>
+</div>
 <script src="js/starfield.js"></script>
 <script src="js/spaceinvaders.js"></script>
 <script>
@@ -84,6 +90,9 @@
         }
         game.keyDown(keycode);
 
+    });
+    window.addEventListener("dragenter", function (e) {
+        game.PauseState()
     });
     window.addEventListener("keyup", function keydown(e) {
         var keycode = e.which || window.event.keycode;

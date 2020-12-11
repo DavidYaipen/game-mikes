@@ -49,13 +49,13 @@ function Game() {
         gameWidth: 400,
         gameHeight: 300,
         fps: 60,
-        debugMode: true,
+        debugMode: false,
         invaderRanks: 5,
         invaderFiles: 10,
         shipSpeed: 300,
         levelDifficultyMultiplier: 0.2,
         pointsPerInvader: 1,
-        limitLevelIncrease: 3
+        limitLevelIncrease: 1
     };
 
     //  All state is in the variables below.
@@ -604,7 +604,7 @@ PlayState.prototype.draw = function (game, dt, ctx) {
     ctx.drawImage(imgNave, this.ship.x - (this.ship.width / 2), this.ship.y, this.ship.width, this.ship.height)
 
     //  Draw invaders.
-    ctx.fillStyle = '#FED500';
+    ctx.fillStyle = '#FFFFFF';
     for (var i = 0; i < this.invaders.length; i++) {
         var invader = this.invaders[i];
         ctx.fillRect(invader.x - invader.width / 2, invader.y - invader.height / 2, invader.width, invader.height);
@@ -614,16 +614,20 @@ PlayState.prototype.draw = function (game, dt, ctx) {
     ctx.fillStyle = '#22A7F2';
     for (var i = 0; i < this.bombs.length; i++) {
         var bomb = this.bombs[i];
-        ctx.fillRect(bomb.x - 2, bomb.y - 2, 4, 4);
+        ctx.fillRect(bomb.x - 1, bomb.y - 2, 4, 4);
     }
 
     //  Draw rockets.
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = '#FED500';
+    for (var i = 0; i < this.rockets.length; i++) {
+        var rocket1 = this.rockets[i];
+        ctx.fillRect(rocket1.x + 30, rocket1.y - 2, 4, 4);
+    }
+    ctx.fillStyle = '#FED500';
     for (var i = 0; i < this.rockets.length; i++) {
         var rocket = this.rockets[i];
-        ctx.fillRect(rocket.x, rocket.y - 2, 1, 4);
+        ctx.fillRect(rocket.x - 32, rocket.y - 2, 4, 4);
     }
-
     //  Draw info.
     var textYpos = game.gameBounds.bottom + ((game.height - game.gameBounds.bottom) / 2) + 14 / 2;
     ctx.font = "14px Arial";
