@@ -1231,6 +1231,13 @@
     canvas.width = 800;
     canvas.height = 800;
 
+    //validation responsive
+    let width = screen.width;
+
+    if(width < 600){
+        canvas.style.cssText = 'margin-top: 30vh;';
+    }  
+
     //  Create the game.
     var game = new Game();
 
