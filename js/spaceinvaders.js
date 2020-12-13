@@ -70,7 +70,7 @@ function Game() {
     this.intervalId = 0;
     this.score = 0;
     this.level = 1;
-
+    this.totalTime = 30
     //  The state stack.
     this.stateStack = [];
 
@@ -130,8 +130,11 @@ Game.prototype.start = function () {
 
     //  Set the game variables.
     this.lives = 3;
+    this.totalTime = 30
+
     this.config.debugMode = /debug=true/.test(window.location.href);
 
+    // Start time
     //  Start the game loop.
     var game = this;
     this.intervalId = setInterval(function () {
