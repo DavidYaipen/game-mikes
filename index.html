@@ -300,10 +300,10 @@
             bombMinVelocity: 50,
             bombMaxVelocity: 50,
             invaderInitialVelocity: 45,
-            invaderAcceleration: 0,
+            invaderAcceleration: 2,
             invaderDropDistance: 10,
-            rocketVelocity: 100,
-            rocketMaxFireRate: 6,
+            rocketVelocity: 160,
+            rocketMaxFireRate: 2,
             gameWidth: 800,
             gameHeight: 320,
             fps: 60,
@@ -1054,9 +1054,13 @@
         }
 
         //  Draw rockets.
+        const imgBullet = new Image()
+        imgBullet.src = bullet
+
         ctx.fillStyle = '#FED500';
         for (var i = 0; i < this.rockets.length; i++) {
             var rocket1 = this.rockets[i];
+            ctx.drawImage(imgBullet, rocket1.x, rocket1.y, imgBullet.width / 1.5, imgBullet.height / 1.5)
             ctx.fillRect(rocket1.x, rocket1.y, 4, 4);
         }
 
@@ -1157,7 +1161,7 @@
 
     LevelIntroState.prototype.update = function (game, dt) {
         //  Check for victory
-        if (this.level === 4) {
+        if (this.level === 2) {
             game.moveToState(new VictoryState())
         }
 
