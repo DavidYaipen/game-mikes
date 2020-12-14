@@ -3,6 +3,7 @@
 <head>
     <title>Space Invaders</title>
     <meta lang="es" charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <style>
         <!--
         core
@@ -738,6 +739,7 @@
         if (game.pressedKeys[KEY_RIGHT]) {
             this.ship.x += this.shipSpeed * dt;
         }
+
         if (game.pressedKeys[KEY_SPACE]) {
             this.fireRocket();
         }
@@ -903,6 +905,7 @@
             game.level += 1;
             game.moveToState(new LevelIntroState(game.level));
         }
+        this.fireRocket();
     };
 
     PlayState.prototype.draw = function (game, dt, ctx) {
@@ -934,13 +937,13 @@
         ctx.fillStyle = '#FED500';
         for (var i = 0; i < this.rockets.length; i++) {
             var rocket1 = this.rockets[i];
-            ctx.fillRect(rocket1.x + 30, rocket1.y - 2, 4, 4);
+            ctx.fillRect(rocket1.x, rocket1.y, 4, 4);
         }
-        ctx.fillStyle = '#FED500';
-        for (var i = 0; i < this.rockets.length; i++) {
-            var rocket = this.rockets[i];
-            ctx.fillRect(rocket.x - 32, rocket.y - 2, 4, 4);
-        }
+        // ctx.fillStyle = '#FED500';
+        // for (var i = 0; i < this.rockets.length; i++) {
+        //     var rocket = this.rockets[i];
+        //     ctx.fillRect(rocket.x - 32, rocket.y - 2, 4, 4);
+        // }
         //  Draw info.
         var textYpos = game.gameBounds.bottom + ((game.height - game.gameBounds.bottom) / 2) + 14 / 2;
         ctx.font = "14px Arial";
@@ -964,6 +967,7 @@
     };
 
     PlayState.prototype.keyDown = function (game, keyCode) {
+        this.fireRocket();
 
         if (keyCode == KEY_SPACE) {
             //  Fire!
@@ -1232,11 +1236,12 @@
     canvas.height = 800;
 
     //validation responsive
-    let width = screen.width;
-
-    if(width < 600){
-        canvas.style.cssText = 'margin-top: 30vh;';
-    }  
+    // let width = screen.width;
+    //
+    // if(width < 600){
+    //     canvas.width = width
+    //     canvas.height = width
+    // }
 
     //  Create the game.
     var game = new Game();
