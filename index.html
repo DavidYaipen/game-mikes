@@ -3,7 +3,6 @@
 <head>
     <title>Space Invaders</title>
     <meta lang="es" charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <style>
         <!--
         core
@@ -739,7 +738,6 @@
         if (game.pressedKeys[KEY_RIGHT]) {
             this.ship.x += this.shipSpeed * dt;
         }
-
         if (game.pressedKeys[KEY_SPACE]) {
             this.fireRocket();
         }
@@ -1236,12 +1234,18 @@
     canvas.height = 800;
 
     //validation responsive
-    // let width = screen.width;
-    //
-    // if(width < 600){
-    //     canvas.width = width
-    //     canvas.height = width
-    // }
+    let width = screen.width;
+    let height = screen.height;
+
+    if(width <= 600){
+        if(height <= 640){
+            canvas.style.cssText = 'margin-top: 20vh;';
+        }else{
+            canvas.style.cssText = 'margin-top: 30vh;';
+        }
+    }else if(width > 600){
+        canvas.style.cssText = 'height: 100vh; width: 100vh;';
+    }
 
     //  Create the game.
     var game = new Game();
