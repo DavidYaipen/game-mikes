@@ -545,16 +545,7 @@
         // nave
         let imgNave = new Image()
         imgNave.src = limon_nave_bla
-        let wrh = imgNave.width / imgNave.height;
-        let newWidth = game.width;
-        let newHeight = newWidth / wrh;
-        if (newHeight > game.height) {
-            newHeight = game.height;
-            newWidth = newHeight * wrh;
-        }
-        const xOffset = newWidth < game.width ? ((game.width - newWidth) / 2) : 0;
-        const yOffset = newHeight < game.height ? ((game.height - newHeight) / 2) : 0;
-        ctx.drawImage(imgNave, game.width / 2 - imgNave.width / 1.3 / 2, game.width / 1.8 - imgNave.height / 1.3 / 2, imgNave.width / 1.3, imgNave.height / 1.3);
+        ctx.drawImage(imgNave, game.width / 2 - imgNave.width / 1.3 / 2, game.width / 1.7 - imgNave.height / 1.3 / 2, imgNave.width / 1.3, imgNave.height / 1.3);
 
         // button
         let imgButton = new Image()
@@ -584,7 +575,6 @@
     GoState.prototype.draw = function (game, dt, ctx) {
         //  Clear the background.
         ctx.clearRect(0, 0, game.width, game.height);
-        // logo
         let img = new Image()
         img.src = logo_mikes
         // draw image
@@ -594,9 +584,9 @@
         const imgGo = new Image()
         imgGo.src = btn_go
 
-        ctx.drawImage(img, game.width / 30, game.height / 30, img.width / 1 , img.height / 1);
-        ctx.drawImage(imgDraw, game.width / 2.8 - imgDraw.width /5, game.height / 2 - imgDraw.height / 3.5 - imgGo.height, imgDraw.width / 1.4, imgDraw.height / 1.4  )
-        ctx.drawImage(imgGo, game.width / 2 - imgGo.width / 2, game.height - imgGo.height * 1.3)
+        ctx.drawImage(img, game.width / 30, game.height / 30, img.width / 1.2, img.height / 1.2);
+        ctx.drawImage(imgDraw, game.width / 2 - imgDraw.width / 1.35 / 2, game.height / 2 - imgDraw.height / 2 + 37, imgDraw.width / 1.3, imgDraw.height / 1.3)
+        ctx.drawImage(imgGo, game.width / 2 - imgGo.width / 1.3 / 2, game.height / 1.18, imgGo.width / 1.3, imgGo.height / 1.3)
     }
 
     GoState.prototype.keyDown = function (game, keyCode) {
