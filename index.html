@@ -540,7 +540,7 @@
         // logo-killers
         let imgKillers = new Image()
         imgKillers.src = logo_killers
-        ctx.drawImage(imgKillers, game.width / 2 - imgKillers.width / 1.4 / 2, game.height / 13, imgKillers.width / 1.4, imgKillers.height / 1.4)
+        ctx.drawImage(imgKillers, game.width / 2 - imgKillers.width / 1.4 / 2, game.height / 15, imgKillers.width / 1.4, imgKillers.height / 1.4)
 
         // nave
         let imgNave = new Image()
@@ -554,12 +554,12 @@
         }
         const xOffset = newWidth < game.width ? ((game.width - newWidth) / 2) : 0;
         const yOffset = newHeight < game.height ? ((game.height - newHeight) / 2) : 0;
-        ctx.drawImage(imgNave, game.width / 7, game.width / 1.8 - imgNave.height / 1.5 / 2, imgNave.width / 1.5, imgNave.height / 1.5);
+        ctx.drawImage(imgNave, game.width / 2 - imgNave.width / 1.3 / 2, game.width / 1.8 - imgNave.height / 1.3 / 2, imgNave.width / 1.3, imgNave.height / 1.3);
 
         // button
         let imgButton = new Image()
         imgButton.src = btn_jugar
-        ctx.drawImage(imgButton, game.width / 2 - imgButton.width / 1.5 / 2, game.height / 1.2, imgButton.width / 1.5, imgButton.height / 1.5)
+        ctx.drawImage(imgButton, game.width / 2 - imgButton.width / 1.3 / 2, game.height / 1.18, imgButton.width / 1.3, imgButton.height / 1.3)
     };
 
     WelcomeState.prototype.keyDown = function (game, keyCode) {
