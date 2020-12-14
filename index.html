@@ -379,7 +379,7 @@
     Game.prototype.start = function () {
 
         //  Move into the 'welcome' state.
-        this.moveToState(new GameOverState());
+        this.moveToState(new WelcomeState());
 
         //  Set the game variables.
         this.lives = 3;
@@ -630,7 +630,7 @@
         ctx.drawImage(imgScore, game.width - imgScore.width, game.height / 30, imgScore.width / 1.2, img.height / 1.2);
         ctx.font = '30px PressStart2p';
         ctx.fillStyle = '#000000';
-        ctx.fillText("PTS:" + game.score + "", game.width / 1.45, game.height / 10)
+        ctx.fillText("PTS:" + game.score + "", game.width / 1.1, game.height / 10)
 
         const imgTextGameOver = new Image()
         imgTextGameOver.src = perdiste
