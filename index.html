@@ -304,7 +304,7 @@
             rocketVelocity: 400,
             rocketMaxFireRate: 8,
             gameWidth: 700,
-            gameHeight: 400,
+            gameHeight: 500,
             fps: 60,
             debugMode: false,
             invaderRanks: 5,
@@ -672,6 +672,9 @@
         const img = new Image()
         img.src = felicidades
         ctx.drawImage(img, 0, 0, game.width, game.height)
+        ctx.font = '60px PressStart2p'
+        ctx.fillText("PTS:", game.width / 2 - 65, game.height / 2 - 60)
+        ctx.fillText(game.score, game.width / 2, game.height / 2)
     }
 
     //  Create a PlayState with the game config and the level you are on.
@@ -728,7 +731,7 @@
         const frase3 = {
             linea1: 'YA ESTOY LLEGANDO,'.split(""),
             linea2: 'NO DEMORO NADA'.split(""),
-            line3: 'AHORITA APAREZCO'.split("")
+            linea3: 'AHORITA APAREZCO'.split("")
         }
         const frase4 = {
             linea1: 'TUVE QUE LLEVAR'.split(""),
@@ -778,9 +781,50 @@
                     1, 1, 'Invader', frase2.linea3[t]
                 ))
             }
+            for (var a = 0; a < frase3.linea1.length; a++) {
+                invaders.push(new Invader(
+                    30 * (a + 1),
+                    (game.gameBounds.top + 220),
+                    1, 1, 'Invader', frase3.linea1[a]))
+            }
+            for (var b = 0; b < frase3.linea2.length; b++) {
+                invaders.push(new Invader(
+                    30 * (b + 1),
+                    (game.gameBounds.top + 280),
+                    1, 1, 'Invader', frase3.linea2[b]
+                ))
+            }
+            for (var c = 0; c < frase3.linea3.length; c++) {
+                invaders.push(new Invader(
+                    30 * (c + 1),
+                    (game.gameBounds.top + 340),
+                    1, 1, 'Invader', frase3.linea3[c]
+                ))
+            }
         }
 
-        // if (this.level === 2)
+        if (this.level === 3) {
+            for (var d = 0; d < frase4.linea1.length; d++) {
+                invaders.push(new Invader(
+                    30 * (d + 1),
+                    (game.gameBounds.top + 20),
+                    1, 1, 'Invader', frase4.linea1[d]))
+            }
+            for (var e = 0; e < frase4.linea2.length; e++) {
+                invaders.push(new Invader(
+                    30 * (e + 1),
+                    (game.gameBounds.top + 70),
+                    1, 1, 'Invader', frase4.linea2[e]
+                ))
+            }
+            for (var f = 0; f < frase4.linea3.length; f++) {
+                invaders.push(new Invader(
+                    30 * (f + 1),
+                    (game.gameBounds.top + 130),
+                    1, 1, 'Invader', frase4.linea3[f]
+                ))
+            }
+        }
         // for (var rank = 0; rank < ranks; rank++) {
         //     for (var file = 0; file < files; file++) {
         //         console.log(rank, file)
@@ -788,7 +832,7 @@
         //         invaders.push(new Invader(
         //             (game.width / 2) + ((files / 2 - file) * 200 / files),
         //             (game.gameBounds.top + rank * 20),
-        //             rank, file, 'Invader', ));
+        //             rank, file, 'Invader',));
         //     }
         // }
         this.invaders = invaders;
@@ -1004,8 +1048,9 @@
             // ctx.fillRect(invader.x - invader.width / 2, invader.y - invader.height / 2, invader.width, invader.height);
             // invader.x = i*invader.width;
             ctx.strokeStyle = '#FFFFFF'
-            ctx.font = '22px Arial';
-            ctx.strokeText(invader.script, invader.x + invader.width / 2, invader.y + invader.height / 2
+            ctx.fillStyle = '#FFFFFF'
+            ctx.font = '25px PressStart2p';
+            ctx.fillText(invader.script, invader.x + invader.width / 2, invader.y + invader.height / 2
             )
         }
 
@@ -1028,18 +1073,18 @@
         const imgScore = new Image()
         imgScore.src = bg_score
         ctx.drawImage(imgScore, game.width - imgScore.width, game.height / 30, imgScore.width / 1.2, img.height / 1.2);
-        ctx.font = '30px PressStart2p';
+        ctx.font = '40px PressStart2p';
         ctx.fillStyle = '#000000';
-        ctx.fillText("PTS:" + game.score + "", game.width / 1.1, game.height / 10)
+        ctx.fillText("PTS:" + game.score + "", game.width / 1.4, game.height / 10)
 
-        ctx.font = "14px Arial";
-        ctx.fillStyle = '#ffffff';
-        var info = "Lives: " + game.lives;
-        ctx.textAlign = "left";
-        ctx.fillText(info, game.gameBounds.left, textYpos);
-        info = "Score: " + game.score + ", Level: " + game.level;
-        ctx.textAlign = "right";
-        ctx.fillText(info, game.gameBounds.right, textYpos);
+        // ctx.font = "14px Arial";
+        // ctx.fillStyle = '#ffffff';
+        // var info = "Lives: " + game.lives;
+        // ctx.textAlign = "left";
+        // ctx.fillText(info, game.gameBounds.left, textYpos);
+        // info = "Score: " + game.score + ", Level: " + game.level;
+        // ctx.textAlign = "right";
+        // ctx.fillText(info, game.gameBounds.right, textYpos);
 
         //  If we're in debug mode, draw bounds.
         if (this.config.debugMode) {
