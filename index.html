@@ -594,9 +594,9 @@
         const imgGo = new Image()
         imgGo.src = btn_go
 
-        ctx.drawImage(img, game.width / 30, game.height / 30, img.width / 1.2, img.height / 1.2);
-        ctx.drawImage(imgDraw, game.width / 2 - imgDraw.width / 3.5, game.height / 2 - imgDraw.height / 3.5 - imgGo.height, imgDraw.width / 1.5, imgDraw.height / 1.5)
-        ctx.drawImage(imgGo, game.width / 2 - imgGo.width / 2, game.height - imgGo.height * 1.5)
+        ctx.drawImage(img, game.width / 30, game.height / 30, img.width / 1 , img.height / 1);
+        ctx.drawImage(imgDraw, game.width / 2.8 - imgDraw.width /5, game.height / 2 - imgDraw.height / 3.5 - imgGo.height, imgDraw.width / 1.4, imgDraw.height / 1.4  )
+        ctx.drawImage(imgGo, game.width / 2 - imgGo.width / 2, game.height - imgGo.height * 1.3)
     }
 
     GoState.prototype.keyDown = function (game, keyCode) {
