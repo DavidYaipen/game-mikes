@@ -303,8 +303,8 @@
             invaderDropDistance: 20,
             rocketVelocity: 400,
             rocketMaxFireRate: 8,
-            gameWidth: 450,
-            gameHeight: 450,
+            gameWidth: 700,
+            gameHeight: 400,
             fps: 60,
             debugMode: false,
             invaderRanks: 5,
@@ -654,6 +654,7 @@
             game.score = 0;
             game.level = 1;
             game.moveToState(new LevelIntroState(1));
+            FbPlayableAd.onCTAClick();
         }
     };
 
@@ -715,14 +716,39 @@
         var ranks = this.config.invaderRanks + 0.1 * limitLevel;
         var files = this.config.invaderFiles + 0.2 * limitLevel;
         var invaders = [];
-        for (var rank = 0; rank < ranks; rank++) {
-            for (var file = 0; file < files; file++) {
-                invaders.push(new Invader(
-                    (game.width / 2) + ((files / 2 - file) * 200 / files),
-                    (game.gameBounds.top + rank * 20),
-                    rank, file, 'Invader'));
-            }
+        var string = 'TERMINAMOS Y'.split("");
+        var string2 = 'ESTA VEZ SI ES'.split("")
+        var string3 = 'PARA SIEMPRE'.split("")
+        for (var v = 0; v < string.length; v++) {
+            invaders.push(new Invader(
+                30 * (v + 1),
+                (game.gameBounds.top + 10),
+                1, 1, 'Invader', string[v]))
         }
+        for (var s = 0; s < string2.length; s++) {
+            invaders.push(new Invader(
+                30 * (s + 1),
+                (game.gameBounds.top + 60),
+                1, 1, 'Invader', string2[s]
+            ))
+        }
+        for (var t = 0; t < string3.length; t++) {
+            invaders.push(new Invader(
+                30 * (t + 1),
+                (game.gameBounds.top + 110),
+                1, 1, 'Invader', string3[t]
+            ))
+        }
+        // for (var rank = 0; rank < ranks; rank++) {
+        //     for (var file = 0; file < files; file++) {
+        //         console.log(rank, file)
+        //
+        //         invaders.push(new Invader(
+        //             (game.width / 2) + ((files / 2 - file) * 200 / files),
+        //             (game.gameBounds.top + rank * 20),
+        //             rank, file, 'Invader', ));
+        //     }
+        // }
         this.invaders = invaders;
         this.invaderCurrentVelocity = this.invaderInitialVelocity;
         this.invaderVelocity = {x: -this.invaderInitialVelocity, y: 0};
@@ -929,13 +955,16 @@
         ctx.drawImage(imgNave, this.ship.x - (this.ship.width / 2), this.ship.y, this.ship.width, this.ship.height)
 
         //  Draw invaders.
-        ctx.fillStyle = '#FFFFFF'
-        const invaders = ['T', 'E', 'R', 'M', 'I', 'N', 'A', 'M', 'O', 'S']
+        ctx.fillStyle = '#FED500'
+        // const invaders = ['T', 'E', 'R', 'M', 'I', 'N', 'A', 'M', 'O', 'S']
         for (var i = 0; i < this.invaders.length; i++) {
             var invader = this.invaders[i];
-            ctx.fillRect(invader.x - invader.width / 2, invader.y - invader.height / 2, invader.width, invader.height);
-            ctx.strokeStyle = '#22A7F2'
-            ctx.strokeText(invaders[i], invader.x - invader.width / 2, invader.y - invader.height / 2)
+            // ctx.fillRect(invader.x - invader.width / 2, invader.y - invader.height / 2, invader.width, invader.height);
+            // invader.x = i*invader.width;
+            ctx.strokeStyle = '#FFFFFF'
+            ctx.font = '22px Arial';
+            ctx.strokeText(invader.script, invader.x + invader.width / 2, invader.y + invader.height / 2
+            )
         }
 
         //  Draw bombs.
@@ -1154,14 +1183,15 @@
         Invader's have position, type, rank/file and that's about it.
     */
 
-    function Invader(x, y, rank, file, type) {
+    function Invader(x, y, rank, file, type, script) {
         this.x = x;
         this.y = y;
         this.rank = rank;
         this.file = file;
         this.type = type;
-        this.width = 18;
-        this.height = 14;
+        this.width = 80;
+        this.height = 80;
+        this.script = script;
     }
 
     /*
@@ -1293,7 +1323,7 @@
             e.preventDefault();
         }
         game.keyDown(keycode);
-
+        FbPlayableAd.onCTAClick();
     });
 
     window.addEventListener("keyup", function keydown(e) {
@@ -1317,6 +1347,17 @@
         game.mute();
         document.getElementById("muteLink").innerText = game.sounds.mute ? "unmute" : "mute";
     }
+    // Onclick listener for "Install Now" button
+    document.getElementById("install").addEventListener("mousedown", function () {
+
+        // Required:
+        // This function call is a requirement for the playable asset.
+
+        // Facebook uses this function call to invoke a function that will
+        // navigate to the corresponding landing site for the CTA configured.
+        FbPlayableAd.onCTAClick();
+
+    }, false);
 </script>
 </body>
 </html>
