@@ -298,11 +298,11 @@
             bombRate: 0.05,
             bombMinVelocity: 50,
             bombMaxVelocity: 50,
-            invaderInitialVelocity: 25,
+            invaderInitialVelocity: 45,
             invaderAcceleration: 0,
             invaderDropDistance: 10,
-            rocketVelocity: 400,
-            rocketMaxFireRate: 8,
+            rocketVelocity: 100,
+            rocketMaxFireRate: 6,
             gameWidth: 800,
             gameHeight: 320,
             fps: 60,
@@ -619,7 +619,7 @@
         ctx.drawImage(imgScore, game.width - imgScore.width, game.height / 30, imgScore.width / 1.2, img.height / 1.2);
         ctx.font = '30px PressStart2p';
         ctx.fillStyle = '#000000';
-        ctx.fillText("PTS:" + game.score + "", game.width / 1.1, game.height / 10)
+        ctx.fillText("PTS:" + game.score + "", game.width / 1.3, game.height / 10)
         //Game Over.
         const imgTextGameOver = new Image()
         imgTextGameOver.src = perdiste
@@ -664,9 +664,11 @@
         const img = new Image()
         img.src = felicidades
         ctx.drawImage(img, 0, 0, game.width, game.height)
-        ctx.font = '60px PressStart2p'
-        ctx.fillText("PTS:", game.width / 2 - 65, game.height / 2 - 60)
-        ctx.fillText(game.score, game.width / 2, game.height / 2)
+        ctx.font = '50px PressStart2p'
+        ctx.textAlign = "center";
+        ctx.fillText("PTS", game.width / 2, game.height / 2 +25)
+        ctx.font = '90px PressStart2p'
+        ctx.fillText(game.score, game.width / 2, game.height / 2-25)
     }
 
     //  Create a PlayState with the game config and the level you are on.
