@@ -643,7 +643,7 @@
         ctx.drawImage(imgBtnRight, game.width / 1.3 + imgBtnRight.width / 4, game.height / 1.3 + imgBtnRight.height / 4, imgBtnRight.width / 1.3, imgBtnRight.height / 1.3)
         const imgBtnLeft = new Image()
         imgBtnLeft.src = btn_left
-        ctx.drawImage(imgBtnLeft, game.width / 20, game.height / 1.3 + imgBtnLeft.height / 4,imgBtnLeft.width / 1.3, imgBtnLeft.height / 1.3)
+        ctx.drawImage(imgBtnLeft, game.width / 20, game.height / 1.3 + imgBtnLeft.height / 4, imgBtnLeft.width / 1.3, imgBtnLeft.height / 1.3)
 
     };
 
@@ -1063,20 +1063,29 @@
         let img = new Image()
         img.src = logo_mikes
         ctx.drawImage(img, game.width / 2 - img.width / 2, game.height / 30, img.width / 1.2, img.height / 1.2);
+        const imgNave = new Image()
+        imgNave.src = nave
+        ctx.drawImage(imgNave, game.width / 2 - imgNave.width / 2, game.height / 1.6)
+        const imgBtnRight = new Image()
+        imgBtnRight.src = btn_right
+        ctx.drawImage(imgBtnRight, game.width / 1.3 + imgBtnRight.width / 4, game.height / 1.3 + imgBtnRight.height / 4, imgBtnRight.width / 1.3, imgBtnRight.height / 1.3)
+        const imgBtnLeft = new Image()
+        imgBtnLeft.src = btn_left
+        ctx.drawImage(imgBtnLeft, game.width / 20, game.height / 1.3 + imgBtnLeft.height / 4, imgBtnLeft.width / 1.3, imgBtnLeft.height / 1.3)
         if (game.level === 1) {
             let imgNivel1 = new Image()
             imgNivel1.src = nivel1
-            ctx.drawImage(imgNivel1, game.width / 2 - imgNivel1.width / 2, game.height / 2)
+            ctx.drawImage(imgNivel1, game.width / 2 - imgNivel1.width / 2, game.height / 2 - imgNivel1.height)
         }
         if (game.level === 2) {
             let imgNivel2 = new Image()
             imgNivel2.src = nivel2
-            ctx.drawImage(imgNivel2, game.width / 2 - imgNivel2.width / 2, game.height / 2)
+            ctx.drawImage(imgNivel2, game.width / 2 - imgNivel2.width / 2, game.height / 2 - imgNivel2.height)
         }
         if (game.level === 3) {
             let imgNivel3 = new Image()
             imgNivel3.src = nivel3
-            ctx.drawImage(imgNivel3, game.width / 2 - imgNivel3.width / 2, game.height / 2)
+            ctx.drawImage(imgNivel3, game.width / 2 - imgNivel3.width / 2, game.height / 2 - imgNivel3.height)
         }
         return;
     };
