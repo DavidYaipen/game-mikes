@@ -690,7 +690,7 @@
     function PlayState(config, level) {
         this.config = config;
         this.level = level;
-        this.totalCount = 50;
+        this.totalCount = 59;
         //  Game state.
         this.invaderCurrentVelocity = 10;
         this.invaderCurrentDropDistance = 0;
@@ -705,7 +705,7 @@
     }
 
     PlayState.prototype.enter = function (game) {
-        if (this.totalCount === 50) {
+        if (this.totalCount === 59) {
             this.counter()
         }
 
@@ -1011,12 +1011,30 @@
         if (game.lives <= 0) {
             game.moveToState(new GameOverState());
         }
+        if (game.level === 1) {
 
-        if (this.invaders.length === 0) {
-            game.score += game.score;
-            game.level += 1;
-            this.totalCount = 50;
-            game.moveToState(new LevelIntroState(game.level));
+            if (this.invaders.length === 0) {
+                game.score += game.score;
+                game.level += 1;
+                this.totalCount = 59;
+                game.moveToState(new LevelIntroState(game.level));
+            }
+        }
+        if (game.level === 2) {
+            if (this.invaders.length === 0 && this.fraseState === 2) {
+                game.score += game.score;
+                game.level += 1;
+                this.totalCount = 59;
+                game.moveToState(new LevelIntroState(game.level));
+            }
+        }
+        if (game.level === 3) {
+            if (this.invaders.length === 0 && this.fraseState === 3) {
+                game.score += game.score;
+                game.level += 1;
+                this.totalCount = 59;
+                game.moveToState(new LevelIntroState(game.level));
+            }
         }
         this.fireRocket();
     };
@@ -1080,10 +1098,10 @@
         ctx.fillText("PTS:" + game.score + "", game.width / 1.4, game.height / 10)
         const imgTime = new Image()
         imgTime.src = bg_score
-        ctx.drawImage(imgTime, imgTime.width / 6, game.height / 30,  imgScore.width / 1.2, img.height / 1.2)
+        ctx.drawImage(imgTime, imgTime.width / 6, game.height / 30, imgScore.width / 1.2, img.height / 1.2)
         ctx.font = '40px PressStart2p'
         ctx.fillStyle = '#000000';
-        ctx.fillText('0:' + this.totalCount, 120,  game.height / 10)
+        ctx.fillText('0:' + this.totalCount, 120, game.height / 10)
 
         // ctx.font = "14px Arial";
         // ctx.fillStyle = '#ffffff';
@@ -1131,7 +1149,7 @@
                 linea2: 'NO DEMORO NADA'.split(""),
                 linea3: 'AHORITA APAREZCO'.split("")
             }
-            if (this.invaders.length === 1) {
+            if (this.invaders.length === 0) {
                 for (var a = 0; a < frase3.linea1.length; a++) {
                     if (frase3.linea1[a] !== "") {
                         invaders.push(new Invader(
@@ -1168,7 +1186,7 @@
                 linea1: 'SE ME FUE'.split(""),
                 linea2: 'LA LUZ'.split("")
             }
-            if (this.invaders.length === 1) {
+            if (this.invaders.length === 0) {
                 for (var a = 0; a < frase3.linea1.length; a++) {
                     if (frase3.linea1[a] !== "") {
                         invaders.push(new Invader(
@@ -1196,7 +1214,7 @@
                 linea2: 'NOSOTROS TE'.split(""),
                 linea3: 'LLAMAMOS'.split("")
             }
-            if (this.invaders.length === 1) {
+            if (this.invaders.length === 0) {
                 for (var a = 0; a < frase3.linea1.length; a++) {
                     if (frase3.linea1[a] !== "") {
                         invaders.push(new Invader(
