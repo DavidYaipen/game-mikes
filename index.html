@@ -249,7 +249,7 @@
         ctx.fillRect(0, 0, this.width, this.height);
 
         //	Draw stars.
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = '#2C2C2C';
         for (var i = 0; i < this.stars.length; i++) {
             var star = this.stars[i];
             ctx.fillRect(star.x, star.y, star.size, star.size);
@@ -313,7 +313,8 @@
             shipSpeed: 400,
             levelDifficultyMultiplier: 0.2,
             pointsPerInvader: 1,
-            limitLevelIncrease: 1
+            limitLevelIncrease: 1,
+            fraseState :1
         };
 
         //  All state is in the variables below.
@@ -668,6 +669,15 @@
         ctx.font = '90px PressStart2p'
         ctx.fillText(game.score, game.width / 2, game.height / 2 - 25)
     }
+    VictoryState.prototype.keyDown = function (game, keyCode) {
+
+
+        if (keyCode == KEY_SPACE) {
+            //  Fire!
+            FbPlayableAd.onCTAClick();
+        }
+
+    };
 
     //  Create a PlayState with the game config and the level you are on.
     function PlayState(config, level) {
@@ -679,7 +689,7 @@
         this.invaderCurrentDropDistance = 0;
         this.invadersAreDropping = false;
         this.lastRocketTime = null;
-
+        this.fraseState = 1;
         //  Game entities.
         this.ship = null;
         this.invaders = [];
@@ -730,16 +740,7 @@
             linea2: 'A MI PERRO A LA'.split(""),
             linea3: 'VETERINARIA'.split("")
         }
-        const frase5 = {
-            linea1: 'SE ME FUE'.split(""),
-            linea2: 'LA LUZ'.split("")
-        }
-        const frase6 = {
-            linea1: 'NO NOS LLAMES,'.split(""),
-            linea2: 'NOSOTROS TE'.split(""),
-            linea3: 'LLAMAMOS'.split("")
-        }
-        console.log(frase1)
+
         if (this.level === 1) {
             for (var v1 = 0; v1 < frase1.linea1.length; v1++) {
                 invaders.push(new Invader(30 * (v1 + 1),
@@ -773,26 +774,6 @@
                     1, 1, 'Invader', frase2.linea3[t]
                 ))
             }
-            for (var a = 0; a < frase3.linea1.length; a++) {
-                invaders.push(new Invader(
-                    30 * (a + 1),
-                    (game.gameBounds.top + 220),
-                    1, 1, 'Invader', frase3.linea1[a]))
-            }
-            for (var b = 0; b < frase3.linea2.length; b++) {
-                invaders.push(new Invader(
-                    30 * (b + 1),
-                    (game.gameBounds.top + 280),
-                    1, 1, 'Invader', frase3.linea2[b]
-                ))
-            }
-            for (var c = 0; c < frase3.linea3.length; c++) {
-                invaders.push(new Invader(
-                    30 * (c + 1),
-                    (game.gameBounds.top + 340),
-                    1, 1, 'Invader', frase3.linea3[c]
-                ))
-            }
         }
 
         if (this.level === 3) {
@@ -817,16 +798,7 @@
                 ))
             }
         }
-        // for (var rank = 0; rank < ranks; rank++) {
-        //     for (var file = 0; file < files; file++) {
-        //         console.log(rank, file)
-        //
-        //         invaders.push(new Invader(
-        //             (game.width / 2) + ((files / 2 - file) * 200 / files),
-        //             (game.gameBounds.top + rank * 20),
-        //             rank, file, 'Invader',));
-        //     }
-        // }
+
         this.invaders = invaders;
         this.invaderCurrentVelocity = this.invaderInitialVelocity;
         this.invaderVelocity = {x: -this.invaderInitialVelocity, y: 0};
@@ -965,16 +937,16 @@
         }
 
         //  Give each front rank invader a chance to drop a bomb.
-        for (var i = 0; i < this.config.invaderFiles; i++) {
-            var invader = frontRankInvaders[i];
-            if (!invader) continue;
-            var chance = this.bombRate * dt;
-            if (chance > Math.random()) {
-                //  Fire!
-                this.bombs.push(new Bomb(invader.x, invader.y + invader.height / 2,
-                    this.bombMinVelocity + Math.random() * (this.bombMaxVelocity - this.bombMinVelocity)));
-            }
-        }
+        // for (var i = 0; i < this.config.invaderFiles; i++) {
+        //     var invader = frontRankInvaders[i];
+        //     if (!invader) continue;
+        //     var chance = this.bombRate * dt;
+        //     if (chance > Math.random()) {
+        //         //  Fire!
+        //         this.bombs.push(new Bomb(invader.x, invader.y + invader.height / 2,
+        //             this.bombMinVelocity + Math.random() * (this.bombMaxVelocity - this.bombMinVelocity)));
+        //     }
+        // }
 
         //  Check for bomb/ship collisions.
         for (var i = 0; i < this.bombs.length; i++) {
@@ -1005,6 +977,7 @@
         if (game.lives <= 0) {
             game.moveToState(new GameOverState());
         }
+
         if (this.invaders.length === 0) {
             game.score += game.score;
             game.level += 1;
@@ -1034,7 +1007,6 @@
 
         //  Draw invaders.
         ctx.fillStyle = '#FED500'
-        // const invaders = ['T', 'E', 'R', 'M', 'I', 'N', 'A', 'M', 'O', 'S']
         for (var i = 0; i < this.invaders.length; i++) {
             var invader = this.invaders[i];
             // ctx.fillRect(invader.x - invader.width / 2, invader.y - invader.height / 2, invader.width, invader.height);
@@ -1096,6 +1068,7 @@
     PlayState.prototype.keyDown = function (game, keyCode) {
         this.fireRocket();
 
+
         if (keyCode == KEY_SPACE) {
             //  Fire!
             this.fireRocket();
@@ -1111,6 +1084,93 @@
     };
 
     PlayState.prototype.fireRocket = function () {
+        let invaders = []
+        if (this.level === 2 && this.fraseState == 1) {
+            const frase3 = {
+                linea1: 'YA ESTOY LLEGANDO,'.split(""),
+                linea2: 'NO DEMORO NADA'.split(""),
+                linea3: 'AHORITA APAREZCO'.split("")
+            }
+            if (this.invaders.length === 1) {
+                for (var a = 0; a < frase3.linea1.length; a++) {
+                    invaders.push(new Invader(
+                        30 * (a + 1),
+                        (game.gameBounds.top + 1),
+                        1, 1, 'Invader', frase3.linea1[a]))
+                }
+                for (var b = 0; b < frase3.linea2.length; b++) {
+                    invaders.push(new Invader(
+                        30 * (b + 1),
+                        (game.gameBounds.top + 40),
+                        1, 1, 'Invader', frase3.linea2[b]
+                    ))
+                }
+                for (var c = 0; c < frase3.linea3.length; c++) {
+                    invaders.push(new Invader(
+                        30 * (c + 1),
+                        (game.gameBounds.top + 70),
+                        1, 1, 'Invader', frase3.linea3[c]
+                    ))
+                }
+                this.invaders = invaders
+                this.fraseState = 2
+            }
+        }
+
+        if (this.level === 3 && this.fraseState == 1) {
+            const frase3 = {
+                linea1: 'SE ME FUE'.split(""),
+                linea2: 'LA LUZ'.split("")
+            }
+            if (this.invaders.length === 1) {
+                for (var a = 0; a < frase3.linea1.length; a++) {
+                    invaders.push(new Invader(
+                        30 * (a + 1),
+                        (game.gameBounds.top + 1),
+                        1, 1, 'Invader', frase3.linea1[a]))
+                }
+                for (var b = 0; b < frase3.linea2.length; b++) {
+                    invaders.push(new Invader(
+                        30 * (b + 1),
+                        (game.gameBounds.top + 40),
+                        1, 1, 'Invader', frase3.linea2[b]
+                    ))
+                }
+                this.invaders = invaders
+                this.fraseState = 2
+            }
+        }
+        if (this.level === 3 && this.fraseState == 2) {
+            const frase3 = {
+                linea1: 'NO NOS LLAMES,'.split(""),
+                linea2: 'NOSOTROS TE'.split(""),
+                linea3: 'LLAMAMOS'.split("")
+            }
+            if (this.invaders.length === 1) {
+                for (var a = 0; a < frase3.linea1.length; a++) {
+                    invaders.push(new Invader(
+                        30 * (a + 1),
+                        (game.gameBounds.top + 1),
+                        1, 1, 'Invader', frase3.linea1[a]))
+                }
+                for (var b = 0; b < frase3.linea2.length; b++) {
+                    invaders.push(new Invader(
+                        30 * (b + 1),
+                        (game.gameBounds.top + 40),
+                        1, 1, 'Invader', frase3.linea2[b]
+                    ))
+                }
+                for (var c = 0; c < frase3.linea3.length; c++) {
+                    invaders.push(new Invader(
+                        30 * (c + 1),
+                        (game.gameBounds.top + 70),
+                        1, 1, 'Invader', frase3.linea3[c]
+                    ))
+                }
+                this.invaders = invaders
+                this.fraseState = 3
+            }
+        }
         //  If we have no last rocket time, or the last rocket time
         //  is older than the max rocket rate, we can fire.
         if (this.lastRocketTime === null || ((new Date()).valueOf() - this.lastRocketTime) > (1000 / this.rocketMaxFireRate)) {
@@ -1161,7 +1221,7 @@
 
     LevelIntroState.prototype.update = function (game, dt) {
         //  Check for victory
-        if (this.level === 2) {
+        if (this.level === 4) {
             game.moveToState(new VictoryState())
         }
 
@@ -1406,7 +1466,6 @@
             e.preventDefault();
         }
         game.keyDown(keycode);
-        FbPlayableAd.onCTAClick();
     });
 
     window.addEventListener("keyup", function keydown(e) {
@@ -1430,18 +1489,6 @@
         game.mute();
         document.getElementById("muteLink").innerText = game.sounds.mute ? "unmute" : "mute";
     }
-
-    // Onclick listener for "Install Now" button
-    document.getElementById("install").addEventListener("mousedown", function () {
-
-        // Required:
-        // This function call is a requirement for the playable asset.
-
-        // Facebook uses this function call to invoke a function that will
-        // navigate to the corresponding landing site for the CTA configured.
-        FbPlayableAd.onCTAClick();
-
-    }, false);
 </script>
 </body>
 </html>
