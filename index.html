@@ -325,7 +325,7 @@
         this.intervalId = 0;
         this.score = 0;
         this.level = 1;
-        this.totalTime = 30
+        this.totalTime = 31
         //  The state stack.
         this.stateStack = [];
 
@@ -385,7 +385,6 @@
 
         //  Set the game variables.
         this.lives = 3;
-        this.totalTime = 30
 
         this.config.debugMode = /debug=true/.test(window.location.href);
 
@@ -500,6 +499,13 @@
         }
         this.previousX = currentX;
     };
+    Game.prototype.counter = function (e) {
+        var game = this;
+        this.intervalId = setInterval(function () {
+            game.totalTime -= 1
+            console.log(game.totalTime)
+        }, 1000);
+    }
 
     //  Inform the game a key is up.
     Game.prototype.keyUp = function (keyCode) {
@@ -683,7 +689,7 @@
     function PlayState(config, level) {
         this.config = config;
         this.level = level;
-
+        this.totalCount = 31;
         //  Game state.
         this.invaderCurrentVelocity = 10;
         this.invaderCurrentDropDistance = 0;
@@ -698,7 +704,12 @@
     }
 
     PlayState.prototype.enter = function (game) {
-
+        if (this.totalCount === 31) {
+            this.counter()
+        }
+        if (this.totalCount === 0 || this.invaders.length >= 1) {
+            game.pushState(new GameOverState());
+        }
         //  Create the ship.
         this.ship = new Ship(game.width / 2, game.gameBounds.bottom);
 
@@ -820,7 +831,13 @@
         this.invaderVelocity = {x: -this.invaderInitialVelocity, y: 0};
         this.invaderNextVelocity = null;
     };
-
+    PlayState.prototype.counter = function (e) {
+        var game = this;
+        this.intervalId = setInterval(function () {
+            game.totalCount -= 1
+            console.log(game.totalCount)
+        }, 1000);
+    }
     PlayState.prototype.update = function (game, dt) {
 
         //  If the left or right arrow keys are pressed, move
@@ -997,6 +1014,7 @@
         if (this.invaders.length === 0) {
             game.score += game.score;
             game.level += 1;
+            this.totalCount = 31;
             game.moveToState(new LevelIntroState(game.level));
         }
         this.fireRocket();
@@ -1248,10 +1266,10 @@
     function LevelIntroState(level) {
         this.level = level;
         this.countdownMessage = "3";
+        //  Check for victory
     }
 
     LevelIntroState.prototype.update = function (game, dt) {
-        //  Check for victory
         if (this.level === 4) {
             game.moveToState(new VictoryState())
         }
