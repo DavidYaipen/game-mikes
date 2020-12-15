@@ -168,12 +168,12 @@
 
     //	Define the starfield class.
     function Starfield() {
-        this.fps = 30;
+        this.fps = 60;
         this.canvas = null;
         this.width = 0;
         this.width = 0;
-        this.minVelocity = 15;
-        this.maxVelocity = 30;
+        this.minVelocity = 40;
+        this.maxVelocity = 60;
         this.stars = 100;
         this.intervalId = 0;
     }
@@ -690,7 +690,7 @@
     function PlayState(config, level) {
         this.config = config;
         this.level = level;
-        this.totalCount = 30;
+        this.totalCount = 50;
         //  Game state.
         this.invaderCurrentVelocity = 10;
         this.invaderCurrentDropDistance = 0;
@@ -705,7 +705,7 @@
     }
 
     PlayState.prototype.enter = function (game) {
-        if (this.totalCount === 30) {
+        if (this.totalCount === 50) {
             this.counter()
         }
 
@@ -1015,7 +1015,7 @@
         if (this.invaders.length === 0) {
             game.score += game.score;
             game.level += 1;
-            this.totalCount = 30;
+            this.totalCount = 50;
             game.moveToState(new LevelIntroState(game.level));
         }
         this.fireRocket();
