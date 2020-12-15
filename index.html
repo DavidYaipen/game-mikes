@@ -481,7 +481,16 @@
             this.currentState().keyDown(this, KEY_SPACE);
         }
     };
-
+    Game.prototype.clickDown = function (s) {
+        let ClientRect = game.gameCanvas.getBoundingClientRect(),
+            scaleX = game.width / ClientRect.width,
+            scaleY = game.height / ClientRect.height,
+            newx = (s.x - ClientRect.left) * scaleX,
+            newy = (s.y - ClientRect.top) * scaleY
+        if (this.currentState() && this.currentState().clickDown) {
+            this.currentState().clickDown(newx, newy);
+        }
+    }
     Game.prototype.touchend = function (s) {
         delete this.pressedKeys[KEY_RIGHT];
         delete this.pressedKeys[KEY_LEFT];
@@ -533,7 +542,6 @@
 
     WelcomeState.prototype.update = function (game, dt) {
 
-
     };
 
     WelcomeState.prototype.draw = function (game, dt, ctx) {
@@ -572,6 +580,16 @@
         game.moveToState(new GoState());
         // }
     };
+    WelcomeState.prototype.clickDown = function (x, y) {
+        let imgButton = new Image()
+        imgButton.src = btn_jugar
+        var totalX = game.width / 2 - imgButton.width / 1.3 / 2 +  imgButton.width / 1.3
+        var totalY = game.height / 1.18 + imgButton.height / 1.3
+        if ((y >= game.height / 1.18 && y <= totalY) && (x >= game.width / 2 - imgButton.width / 1.3 / 2 && x <= totalX)) {
+            game.moveToState(new GoState());
+        }
+
+    }
 
     function GoState() {
 
@@ -596,9 +614,23 @@
         ctx.drawImage(img, game.width / 30, game.height / 30, img.width / 1.2, img.height / 1.2);
         ctx.drawImage(imgDraw, game.width / 2 - imgDraw.width / 1.35 / 2, game.height / 2 - imgDraw.height / 2 + 37, imgDraw.width / 1.3, imgDraw.height / 1.3)
         ctx.drawImage(imgGo, game.width / 2 - imgGo.width / 1.3 / 2, game.height / 1.18, imgGo.width / 1.3, imgGo.height / 1.3)
+        // imgGo.click(this.keyDown())
+        // game.gameCanvas.addEventListener('click', function (event) {
+        //     var x = game.width / 2 - imgGo.width / 1.3 / 2,
+        //         y = game.height / 1.18;
+        //     console.log(event);
+        //     elements.forEach(function (element) {
+        //         if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
+        //             alert('clicked an element');
+        //         }
+        //     });
+        //
+        // }, false);
+
     }
 
     GoState.prototype.keyDown = function (game, keyCode) {
+        console.log('p')
         if (keyCode == KEY_SPACE) {
             //  Space starts the game.
             game.level = 1;
@@ -1546,6 +1578,10 @@
         var keycode = e.which || window.event.keycode;
         game.keyUp(keycode);
     });
+
+    canvas.addEventListener("click", function (e) {
+        game.clickDown(e);
+    }, false);
 
     window.addEventListener("touchstart", function (e) {
         game.touchstart(e);
