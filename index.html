@@ -753,14 +753,14 @@
 
         if (this.level === 1) {
             for (var v1 = 0; v1 < frase1.linea1.length; v1++) {
-                if (frase1.linea1[v1] !== "") {
+                if (frase1.linea1[v1] !== " ") {
                     invaders.push(new Invader(30 * (v1 + 1),
                         (game.gameBounds.top + 10),
                         1, 1, 'Invader', frase1.linea1[v1]))
                 }
             }
             for (var v2 = 0; v2 < frase1.linea2.length; v2++) {
-                if (frase1.linea2[v2] !== "") {
+                if (frase1.linea2[v2] !== " ") {
                     invaders.push(new Invader(30 * (v2 + 1),
                         (game.gameBounds.top + 60),
                         1, 1, 'Invader', frase1.linea2[v2]))
@@ -769,7 +769,7 @@
         }
         if (this.level === 2) {
             for (var v = 0; v < frase2.linea1.length; v++) {
-                if (frase2.linea1[v] !== "") {
+                if (frase2.linea1[v] !== " ") {
                     invaders.push(new Invader(
                         30 * (v + 1),
                         (game.gameBounds.top + 10),
@@ -777,7 +777,7 @@
                 }
             }
             for (var s = 0; s < frase2.linea2.length; s++) {
-                if (frase2.linea2[s] !== "") {
+                if (frase2.linea2[s] !== " ") {
                     invaders.push(new Invader(
                         30 * (s + 1),
                         (game.gameBounds.top + 60),
@@ -786,7 +786,7 @@
                 }
             }
             for (var t = 0; t < frase2.linea3.length; t++) {
-                if (frase2.linea3[t] !== "") {
+                if (frase2.linea3[t] !== " ") {
                     invaders.push(new Invader(
                         30 * (t + 1),
                         (game.gameBounds.top + 110),
@@ -798,7 +798,7 @@
 
         if (this.level === 3) {
             for (var d = 0; d < frase4.linea1.length; d++) {
-                if (frase4.linea1[d] !== "") {
+                if (frase4.linea1[d] !== " ") {
                     invaders.push(new Invader(
                         30 * (d + 1),
                         (game.gameBounds.top + 20),
@@ -806,7 +806,7 @@
                 }
             }
             for (var e = 0; e < frase4.linea2.length; e++) {
-                if (frase4.linea2[e] !== "") {
+                if (frase4.linea2[e] !== " ") {
                     invaders.push(new Invader(
                         30 * (e + 1),
                         (game.gameBounds.top + 70),
@@ -815,7 +815,7 @@
                 }
             }
             for (var f = 0; f < frase4.linea3.length; f++) {
-                if (frase4.linea3[f] !== "") {
+                if (frase4.linea3[f] !== " ") {
                     invaders.push(new Invader(
                         30 * (f + 1),
                         (game.gameBounds.top + 130),
@@ -1066,7 +1066,7 @@
             // invader.x =   i*invader.width;
             ctx.fillStyle = '#FFFFFF'
             ctx.font = '25px PressStart2p';
-            ctx.fillText(invader.script, invader.x - invader.width / 2, invader.y + invader.height / 2
+            ctx.fillText(invader.script, invader.x - 5, invader.y + invader.height / 2
             )
         }
 
@@ -1151,7 +1151,7 @@
             }
             if (this.invaders.length === 0) {
                 for (var a = 0; a < frase3.linea1.length; a++) {
-                    if (frase3.linea1[a] !== "") {
+                    if (frase3.linea1[a] !== " ") {
                         invaders.push(new Invader(
                             30 * (a + 1),
                             (game.gameBounds.top + 1),
@@ -1159,7 +1159,7 @@
                     }
                 }
                 for (var b = 0; b < frase3.linea2.length; b++) {
-                    if (frase3.linea2[b] !== "") {
+                    if (frase3.linea2[b] !== " ") {
                         invaders.push(new Invader(
                             30 * (b + 1),
                             (game.gameBounds.top + 40),
@@ -1168,7 +1168,7 @@
                     }
                 }
                 for (var c = 0; c < frase3.linea3.length; c++) {
-                    if (frase3.linea3[c] !== "") {
+                    if (frase3.linea3[c] !== " ") {
                         invaders.push(new Invader(
                             30 * (c + 1),
                             (game.gameBounds.top + 70),
@@ -1188,7 +1188,7 @@
             }
             if (this.invaders.length === 0) {
                 for (var a = 0; a < frase3.linea1.length; a++) {
-                    if (frase3.linea1[a] !== "") {
+                    if (frase3.linea1[a] !== " ") {
                         invaders.push(new Invader(
                             30 * (a + 1),
                             (game.gameBounds.top + 1),
@@ -1196,7 +1196,7 @@
                     }
                 }
                 for (var b = 0; b < frase3.linea2.length; b++) {
-                    if (frase3.linea2[b] !== "") {
+                    if (frase3.linea2[b] !== " ") {
                         invaders.push(new Invader(
                             30 * (b + 1),
                             (game.gameBounds.top + 40),
@@ -1216,7 +1216,7 @@
             }
             if (this.invaders.length === 0) {
                 for (var a = 0; a < frase3.linea1.length; a++) {
-                    if (frase3.linea1[a] !== "") {
+                    if (frase3.linea1[a] !== " ") {
                         invaders.push(new Invader(
                             30 * (a + 1),
                             (game.gameBounds.top + 1),
@@ -1224,7 +1224,7 @@
                     }
                 }
                 for (var b = 0; b < frase3.linea2.length; b++) {
-                    if (frase3.linea2[b] !== "") {
+                    if (frase3.linea2[b] !== " ") {
                         invaders.push(new Invader(
                             30 * (b + 1),
                             (game.gameBounds.top + 40),
@@ -1233,7 +1233,7 @@
                     }
                 }
                 for (var c = 0; c < frase3.linea3.length; c++) {
-                    if (frase3.linea3[c] !== "") {
+                    if (frase3.linea3[c] !== " ") {
                         invaders.push(new Invader(
                             30 * (c + 1),
                             (game.gameBounds.top + 70),
