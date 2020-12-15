@@ -299,11 +299,11 @@
             bombRate: 0.05,
             bombMinVelocity: 50,
             bombMaxVelocity: 50,
-            invaderInitialVelocity: 45,
-            invaderAcceleration: 2,
+            invaderInitialVelocity: 60,
+            invaderAcceleration: 5,
             invaderDropDistance: 10,
-            rocketVelocity: 160,
-            rocketMaxFireRate: 2,
+            rocketVelocity: 260,
+            rocketMaxFireRate: 4,
             gameWidth: 800,
             gameHeight: 320,
             fps: 60,
@@ -314,7 +314,7 @@
             levelDifficultyMultiplier: 0.2,
             pointsPerInvader: 1,
             limitLevelIncrease: 1,
-            fraseState :1
+            fraseState: 1
         };
 
         //  All state is in the variables below.
@@ -743,59 +743,75 @@
 
         if (this.level === 1) {
             for (var v1 = 0; v1 < frase1.linea1.length; v1++) {
-                invaders.push(new Invader(30 * (v1 + 1),
-                    (game.gameBounds.top + 10),
-                    1, 1, 'Invader', frase1.linea1[v1]))
+                if (frase1.linea1[v1] !== "") {
+                    invaders.push(new Invader(30 * (v1 + 1),
+                        (game.gameBounds.top + 10),
+                        1, 1, 'Invader', frase1.linea1[v1]))
+                }
             }
             for (var v2 = 0; v2 < frase1.linea2.length; v2++) {
-                invaders.push(new Invader(30 * (v2 + 1),
-                    (game.gameBounds.top + 60),
-                    1, 1, 'Invader', frase1.linea2[v2]))
+                if (frase1.linea2[v2] !== "") {
+                    invaders.push(new Invader(30 * (v2 + 1),
+                        (game.gameBounds.top + 60),
+                        1, 1, 'Invader', frase1.linea2[v2]))
+                }
             }
         }
         if (this.level === 2) {
             for (var v = 0; v < frase2.linea1.length; v++) {
-                invaders.push(new Invader(
-                    30 * (v + 1),
-                    (game.gameBounds.top + 10),
-                    1, 1, 'Invader', frase2.linea1[v]))
+                if (frase2.linea1[v] !== "") {
+                    invaders.push(new Invader(
+                        30 * (v + 1),
+                        (game.gameBounds.top + 10),
+                        1, 1, 'Invader', frase2.linea1[v]))
+                }
             }
             for (var s = 0; s < frase2.linea2.length; s++) {
-                invaders.push(new Invader(
-                    30 * (s + 1),
-                    (game.gameBounds.top + 60),
-                    1, 1, 'Invader', frase2.linea2[s]
-                ))
+                if (frase2.linea2[s] !== "") {
+                    invaders.push(new Invader(
+                        30 * (s + 1),
+                        (game.gameBounds.top + 60),
+                        1, 1, 'Invader', frase2.linea2[s]
+                    ))
+                }
             }
             for (var t = 0; t < frase2.linea3.length; t++) {
-                invaders.push(new Invader(
-                    30 * (t + 1),
-                    (game.gameBounds.top + 110),
-                    1, 1, 'Invader', frase2.linea3[t]
-                ))
+                if (frase2.linea3[t] !== "") {
+                    invaders.push(new Invader(
+                        30 * (t + 1),
+                        (game.gameBounds.top + 110),
+                        1, 1, 'Invader', frase2.linea3[t]
+                    ))
+                }
             }
         }
 
         if (this.level === 3) {
             for (var d = 0; d < frase4.linea1.length; d++) {
-                invaders.push(new Invader(
-                    30 * (d + 1),
-                    (game.gameBounds.top + 20),
-                    1, 1, 'Invader', frase4.linea1[d]))
+                if (frase4.linea1[d] !== "") {
+                    invaders.push(new Invader(
+                        30 * (d + 1),
+                        (game.gameBounds.top + 20),
+                        1, 1, 'Invader', frase4.linea1[d]))
+                }
             }
             for (var e = 0; e < frase4.linea2.length; e++) {
-                invaders.push(new Invader(
-                    30 * (e + 1),
-                    (game.gameBounds.top + 70),
-                    1, 1, 'Invader', frase4.linea2[e]
-                ))
+                if (frase4.linea2[e] !== "") {
+                    invaders.push(new Invader(
+                        30 * (e + 1),
+                        (game.gameBounds.top + 70),
+                        1, 1, 'Invader', frase4.linea2[e]
+                    ))
+                }
             }
             for (var f = 0; f < frase4.linea3.length; f++) {
-                invaders.push(new Invader(
-                    30 * (f + 1),
-                    (game.gameBounds.top + 130),
-                    1, 1, 'Invader', frase4.linea3[f]
-                ))
+                if (frase4.linea3[f] !== "") {
+                    invaders.push(new Invader(
+                        30 * (f + 1),
+                        (game.gameBounds.top + 130),
+                        1, 1, 'Invader', frase4.linea3[f]
+                    ))
+                }
             }
         }
 
@@ -1010,11 +1026,10 @@
         for (var i = 0; i < this.invaders.length; i++) {
             var invader = this.invaders[i];
             // ctx.fillRect(invader.x - invader.width / 2, invader.y - invader.height / 2, invader.width, invader.height);
-            // invader.x = i*invader.width;
-            ctx.strokeStyle = '#FFFFFF'
+            // invader.x =   i*invader.width;
             ctx.fillStyle = '#FFFFFF'
             ctx.font = '25px PressStart2p';
-            ctx.fillText(invader.script, invader.x + invader.width / 2, invader.y + invader.height / 2
+            ctx.fillText(invader.script, invader.x - invader.width / 2, invader.y + invader.height / 2
             )
         }
 
@@ -1093,24 +1108,30 @@
             }
             if (this.invaders.length === 1) {
                 for (var a = 0; a < frase3.linea1.length; a++) {
-                    invaders.push(new Invader(
-                        30 * (a + 1),
-                        (game.gameBounds.top + 1),
-                        1, 1, 'Invader', frase3.linea1[a]))
+                    if (frase3.linea1[a] !== "") {
+                        invaders.push(new Invader(
+                            30 * (a + 1),
+                            (game.gameBounds.top + 1),
+                            1, 1, 'Invader', frase3.linea1[a]))
+                    }
                 }
                 for (var b = 0; b < frase3.linea2.length; b++) {
-                    invaders.push(new Invader(
-                        30 * (b + 1),
-                        (game.gameBounds.top + 40),
-                        1, 1, 'Invader', frase3.linea2[b]
-                    ))
+                    if (frase3.linea2[b] !== "") {
+                        invaders.push(new Invader(
+                            30 * (b + 1),
+                            (game.gameBounds.top + 40),
+                            1, 1, 'Invader', frase3.linea2[b]
+                        ))
+                    }
                 }
                 for (var c = 0; c < frase3.linea3.length; c++) {
-                    invaders.push(new Invader(
-                        30 * (c + 1),
-                        (game.gameBounds.top + 70),
-                        1, 1, 'Invader', frase3.linea3[c]
-                    ))
+                    if (frase3.linea3[c] !== "") {
+                        invaders.push(new Invader(
+                            30 * (c + 1),
+                            (game.gameBounds.top + 70),
+                            1, 1, 'Invader', frase3.linea3[c]
+                        ))
+                    }
                 }
                 this.invaders = invaders
                 this.fraseState = 2
@@ -1124,17 +1145,21 @@
             }
             if (this.invaders.length === 1) {
                 for (var a = 0; a < frase3.linea1.length; a++) {
-                    invaders.push(new Invader(
-                        30 * (a + 1),
-                        (game.gameBounds.top + 1),
-                        1, 1, 'Invader', frase3.linea1[a]))
+                    if (frase3.linea1[a] !== "") {
+                        invaders.push(new Invader(
+                            30 * (a + 1),
+                            (game.gameBounds.top + 1),
+                            1, 1, 'Invader', frase3.linea1[a]))
+                    }
                 }
                 for (var b = 0; b < frase3.linea2.length; b++) {
-                    invaders.push(new Invader(
-                        30 * (b + 1),
-                        (game.gameBounds.top + 40),
-                        1, 1, 'Invader', frase3.linea2[b]
-                    ))
+                    if (frase3.linea2[b] !== "") {
+                        invaders.push(new Invader(
+                            30 * (b + 1),
+                            (game.gameBounds.top + 40),
+                            1, 1, 'Invader', frase3.linea2[b]
+                        ))
+                    }
                 }
                 this.invaders = invaders
                 this.fraseState = 2
@@ -1148,24 +1173,30 @@
             }
             if (this.invaders.length === 1) {
                 for (var a = 0; a < frase3.linea1.length; a++) {
-                    invaders.push(new Invader(
-                        30 * (a + 1),
-                        (game.gameBounds.top + 1),
-                        1, 1, 'Invader', frase3.linea1[a]))
+                    if (frase3.linea1[a] !== "") {
+                        invaders.push(new Invader(
+                            30 * (a + 1),
+                            (game.gameBounds.top + 1),
+                            1, 1, 'Invader', frase3.linea1[a]))
+                    }
                 }
                 for (var b = 0; b < frase3.linea2.length; b++) {
-                    invaders.push(new Invader(
-                        30 * (b + 1),
-                        (game.gameBounds.top + 40),
-                        1, 1, 'Invader', frase3.linea2[b]
-                    ))
+                    if (frase3.linea2[b] !== "") {
+                        invaders.push(new Invader(
+                            30 * (b + 1),
+                            (game.gameBounds.top + 40),
+                            1, 1, 'Invader', frase3.linea2[b]
+                        ))
+                    }
                 }
                 for (var c = 0; c < frase3.linea3.length; c++) {
-                    invaders.push(new Invader(
-                        30 * (c + 1),
-                        (game.gameBounds.top + 70),
-                        1, 1, 'Invader', frase3.linea3[c]
-                    ))
+                    if (frase3.linea3[c] !== "") {
+                        invaders.push(new Invader(
+                            30 * (c + 1),
+                            (game.gameBounds.top + 70),
+                            1, 1, 'Invader', frase3.linea3[c]
+                        ))
+                    }
                 }
                 this.invaders = invaders
                 this.fraseState = 3
@@ -1332,8 +1363,8 @@
         this.rank = rank;
         this.file = file;
         this.type = type;
-        this.width = 80;
-        this.height = 80;
+        this.width = 20;
+        this.height = 20;
         this.script = script;
     }
 
