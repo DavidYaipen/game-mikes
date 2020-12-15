@@ -487,8 +487,9 @@
             scaleY = game.height / ClientRect.height,
             newx = (s.x - ClientRect.left) * scaleX,
             newy = (s.y - ClientRect.top) * scaleY
+        var dt = 1 / game.config.fps;
         if (this.currentState() && this.currentState().clickDown) {
-            this.currentState().clickDown(newx, newy);
+            this.currentState().clickDown(newx, newy, dt);
         }
     }
     Game.prototype.touchend = function (s) {
@@ -580,10 +581,11 @@
         game.moveToState(new GoState());
         // }
     };
+
     WelcomeState.prototype.clickDown = function (x, y) {
         let imgButton = new Image()
         imgButton.src = btn_jugar
-        var totalX = game.width / 2 - imgButton.width / 1.3 / 2 +  imgButton.width / 1.3
+        var totalX = game.width / 2 - imgButton.width / 1.3 / 2 + imgButton.width / 1.3
         var totalY = game.height / 1.18 + imgButton.height / 1.3
         if ((y >= game.height / 1.18 && y <= totalY) && (x >= game.width / 2 - imgButton.width / 1.3 / 2 && x <= totalX)) {
             game.moveToState(new GoState());
@@ -614,18 +616,6 @@
         ctx.drawImage(img, game.width / 30, game.height / 30, img.width / 1.2, img.height / 1.2);
         ctx.drawImage(imgDraw, game.width / 2 - imgDraw.width / 1.35 / 2, game.height / 2 - imgDraw.height / 2 + 37, imgDraw.width / 1.3, imgDraw.height / 1.3)
         ctx.drawImage(imgGo, game.width / 2 - imgGo.width / 1.3 / 2, game.height / 1.18, imgGo.width / 1.3, imgGo.height / 1.3)
-        // imgGo.click(this.keyDown())
-        // game.gameCanvas.addEventListener('click', function (event) {
-        //     var x = game.width / 2 - imgGo.width / 1.3 / 2,
-        //         y = game.height / 1.18;
-        //     console.log(event);
-        //     elements.forEach(function (element) {
-        //         if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
-        //             alert('clicked an element');
-        //         }
-        //     });
-        //
-        // }, false);
 
     }
 
@@ -639,6 +629,19 @@
             game.moveToState(new LevelIntroState(game.level));
         }
     };
+    GoState.prototype.clickDown = function (x, y) {
+        let imgButton = new Image()
+        imgButton.src = btn_go
+        var totalX = game.width / 2 - imgButton.width / 1.3 / 2 + imgButton.width / 1.3
+        var totalY = game.height / 1.18 + imgButton.height / 1.3
+        if ((y >= game.height / 1.18 && y <= totalY) && (x >= game.width / 2 - imgButton.width / 1.3 / 2 && x <= totalX)) {
+            //  Space starts the game.
+            game.level = 1;
+            game.score = 0;
+            game.lives = 3;
+            game.moveToState(new LevelIntroState(game.level));
+        }
+    }
 
     function GameOverState() {
 
@@ -866,7 +869,6 @@
         var game = this;
         this.intervalId = setInterval(function () {
             game.totalCount -= 1
-            console.log(game.totalCount)
         }, 1000);
     }
     PlayState.prototype.update = function (game, dt) {
@@ -883,9 +885,9 @@
         if (game.pressedKeys[KEY_RIGHT]) {
             this.ship.x += this.shipSpeed * dt;
         }
-        if (game.pressedKeys[KEY_SPACE]) {
-            this.fireRocket();
-        }
+        // if (game.pressedKeys[KEY_SPACE]) {
+        //     this.fireRocket();
+        // }
 
         //  Keep the ship in bounds.
         if (this.ship.x < game.gameBounds.left) {
@@ -1001,18 +1003,6 @@
                 frontRankInvaders[invader.file] = invader;
             }
         }
-
-        //  Give each front rank invader a chance to drop a bomb.
-        // for (var i = 0; i < this.config.invaderFiles; i++) {
-        //     var invader = frontRankInvaders[i];
-        //     if (!invader) continue;
-        //     var chance = this.bombRate * dt;
-        //     if (chance > Math.random()) {
-        //         //  Fire!
-        //         this.bombs.push(new Bomb(invader.x, invader.y + invader.height / 2,
-        //             this.bombMinVelocity + Math.random() * (this.bombMaxVelocity - this.bombMinVelocity)));
-        //     }
-        // }
 
         //  Check for bomb/ship collisions.
         for (var i = 0; i < this.bombs.length; i++) {
@@ -1135,14 +1125,6 @@
         ctx.fillStyle = '#000000';
         ctx.fillText('0:' + this.totalCount, 120, game.height / 10)
 
-        // ctx.font = "14px Arial";
-        // ctx.fillStyle = '#ffffff';
-        // var info = "Lives: " + game.lives;
-        // ctx.textAlign = "left";
-        // ctx.fillText(info, game.gameBounds.left, textYpos);
-        // info = "Score: " + game.score + ", Level: " + game.level;
-        // ctx.textAlign = "right";
-        // ctx.fillText(info, game.gameBounds.right, textYpos);
 
         //  If we're in debug mode, draw bounds.
         if (this.config.debugMode) {
@@ -1154,7 +1136,41 @@
         }
 
     };
+    PlayState.prototype.clickDown = function (x, y, dt) {
+        if (game.pressedKeys[KEY_LEFT]) {
+            this.ship.x -= this.shipSpeed * dt;
+        }
+        if (game.pressedKeys[KEY_RIGHT]) {
+            this.ship.x += this.shipSpeed * dt;
+        }
 
+        const imgBtnRight = new Image()
+        imgBtnRight.src = btn_right
+
+        const imgBtnLeft = new Image()
+        imgBtnLeft.src = btn_left
+        // ctx.drawImage(
+        // imgBtnLeft,
+        // game.width / 20,
+        // game.height / 1.3 + imgBtnLeft.height / 4,
+        // imgBtnLeft.width / 1.3,
+        // imgBtnLeft.height / 1.3
+        // )
+        let imgButton = new Image()
+        imgButton.src = btn_go
+        var totalXB1 = game.width / 1.3 + imgBtnRight.width / 4 + imgBtnRight.width / 1.3
+        var totalYB1 = game.height / 1.3 + imgBtnRight.height / 4 + imgBtnRight.height / 1.3
+
+        var totalXB2 = game.width / 20 + imgBtnLeft.width / 1.3
+        var totalYB2 = game.height / 1.3 + imgBtnLeft.height / 4 + imgBtnLeft.height / 1.3
+
+        if ((y >= game.height / 1.3 + imgBtnRight.height / 4 && y <= totalYB1) && (x >= game.width / 1.3 + imgBtnRight.width / 4 && x <= totalXB1)) {
+            this.ship.x += this.shipSpeed * dt;
+        }
+        if ((y >= game.height / 1.3 + imgBtnLeft.height / 4 && y <= totalYB2) && (x >= game.width / 20 && x <= totalXB2)) {
+            this.ship.x -= this.shipSpeed * dt;
+        }
+    }
     PlayState.prototype.keyDown = function (game, keyCode) {
         this.fireRocket();
 
